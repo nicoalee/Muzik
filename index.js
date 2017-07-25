@@ -6,6 +6,7 @@ const session = require('express-session')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')(session)
 const bdypsr = require('body-parser')
+const flash = require('connect-flash')
 // internal modules----------------------------------
 const userRoute = require('./routes/userRoute')
 
@@ -47,11 +48,21 @@ app.use(bdypsr.json())
 // allows us to read the form
 app.use(bdypsr.urlencoded({extended: true}))
 
-// get requests from browser----------------------------------
-app.get('/', function (req, res) {
-  res.render('user/login')
+// setup flash----------------------------------
+// don't need to write anymore. Flash will always appear
+app.use(flash())
+app.use(function (req, res, next) {
+  app.locals.flash = req.flash('msg')
+  next()
 })
 
+// get requests from browser----------------------------------
+app.get('/', function (req, res) {
+  res.render('user/login', {
+    // flash: req.flash('msg')
+  }) // get flash but don't need because we set locals using middleware
+})
+// setup user Route
 app.use('/user', userRoute)
 
 // connect to port ----------------------------------
