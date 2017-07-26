@@ -1,0 +1,22 @@
+<div class="header">
+  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+    <a class="pure-menu-heading" href='/user'>MUZIK.com</a>
+
+    <ul class="pure-menu-list">
+      {{!-- <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li> --}}
+      <li class="pure-menu-item"><a href="/user/logout" class="pure-menu-link">Logout</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="splash-container">
+  <div class="splash">
+    <p class='splash-subhead'>
+      {{flash}}
+    </p>
+    <form class='songSearch' method="post" action='#'>
+      <input name='song' class='searchField' type="text" class="pure-input-rounded" placeholder="Search for your favorite songs">
+      <button class="pure-button">Search</button>
+    </form>
+  </div>
+</div>

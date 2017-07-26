@@ -1,11 +1,9 @@
 const passport = require('../config/passport')
 
-function logout (req, res) {
-  req.logout()
-  req.flash('msg', 'Logged out successfully!')
-  res.redirect('/user')
+function create (req, res) {
+  res.render('playlist/create')
 }
 
 module.exports = {
-  logout
+  create
 }

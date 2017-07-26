@@ -183,7 +183,7 @@ a.pure-button-primary {
 .content-wrapper {
     /* These styles are required for the "scroll-over" effect */
     position: absolute;
-    top: 87%;
+    top: 83%;
     width: 100%;
     min-height: 12%;
     z-index: 2;
@@ -286,4 +286,21 @@ a.pure-button-primary {
     .splash-head {
         font-size: 300%;
     }
+}
+
+/*------------------------table ---------------------*/
+.table-addition{
+  text-align: center;
+  width: 100%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.searchField{
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 1%;
+  padding: 1%;
+  border-radius: 30px;
+  display: block;
 }

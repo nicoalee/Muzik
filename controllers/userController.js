@@ -3,7 +3,6 @@ const passport = require('../config/passport')
 
 function create (req, res) {
   // findorcreate
-
   // if user exists
   User.findOne({email: req.body.user.email}, function (err, doc) {
     if (err) return res.send(err)
@@ -26,7 +25,7 @@ function create (req, res) {
           return res.redirect('/user/new') // flash set
         }
         passport.authenticate('local', {
-          successRedirect: '/user/new'
+          successRedirect: '/playlist'
           // req.flash('msg', 'User succesfully created! Please log in below.') // flash set
         })(req, res)
       })
@@ -36,6 +35,7 @@ function create (req, res) {
 
 function logout (req, res) {
   req.logout()
+  req.flash('msg', 'Logged out successfully!')
   res.redirect('/user')
 }
 

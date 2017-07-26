@@ -18,7 +18,6 @@ function unAuthenticatedUser (req, res, next) {
   return res.redirect('/playlist')
 }
 
-// get requests from browser----------------------------------
 router.route('/')
   .get(unAuthenticatedUser, function (req, res) {
     res.render('user/login', {
@@ -29,6 +28,9 @@ router.route('/')
     successRedirect: '/playlist',
     failureRedirect: '/user'
   }))
+
+router.route('/logout')
+  .get(authenticatedUser, userController.logout)
 
 router.route('/new')
   .get(unAuthenticatedUser, function (req, res) {
