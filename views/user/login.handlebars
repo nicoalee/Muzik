@@ -1,10 +1,10 @@
 <div class="header">
   <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-    <a class="pure-menu-heading" href='/'>MUZIK.com</a>
+    <a class="pure-menu-heading" href='/user'>MUZIK.com</a>
 
     <ul class="pure-menu-list">
       {{!-- <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li> --}}
-      <li class="pure-menu-item"><a href="./user/new" class="pure-menu-link">Sign Up</a></li>
+      <li class="pure-menu-item"><a href="/user/new" class="pure-menu-link">Sign Up</a></li>
     </ul>
   </div>
 </div>
@@ -14,19 +14,19 @@
   <div class="splash">
     <h1 class="splash-head">MAKE MUZIK.</h1>
     <p class="splash-subhead">
-      Sharing music has never been so fun
+      Sharing music has never been so easy
     </p>
     {{!-- get started link/button --}}
     {{!-- <p>
       <a href="http://purecss.io" class="pure-button pure-button-primary">Get Started</a>
     </p> --}}
-    <form class="pure-form" action='#'>
+    <form class="pure-form" action='/user' method='post'>
       <fieldset>
         <legend>Sign in</legend>
         <small style="color:#34495e;">{{flash}}</small>
 
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+        <input type="email" placeholder="Email" name='user[email]'>
+        <input type="password" placeholder="Password" name='user[password]'>
 
         <button type="submit" class="pure-button pure-button-primary">Sign in</button>
       </fieldset>

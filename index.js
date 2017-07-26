@@ -1,3 +1,5 @@
+// load .env file
+require('dotenv').config()
 // external modules----------------------------------
 const handlebars = require('handlebars')
 const exphbs = require('express-handlebars')
@@ -9,6 +11,8 @@ const bdypsr = require('body-parser')
 const flash = require('connect-flash')
 // internal modules----------------------------------
 const userRoute = require('./routes/userRoute')
+const playlistRoute = require('./routes/playlistRoute')
+const passport = require('./config/passport')
 
 // extra stuff----------------------------------
 const app = express()
@@ -26,15 +30,19 @@ mongoose.connect('mongodb://localhost/muzak', {
     console.log(err)
   })
 
-  // setup session----------------------------------
+// setup session----------------------------------
 app.use(session({
   store: new MongoStore({
     url: 'mongodb://localhost/muzak'
   }),
-  secret: 'foo',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUinitialized: true
 }))
+
+// setup passport----------------------------------
+app.use(passport.initialize())
+app.use(passport.session())
 
 // setup handlebars----------------------------------
 app.engine('handlebars', exphbs({
@@ -45,7 +53,7 @@ app.set('view engine', 'handlebars')
 // set up body parser----------------------------------
 // listen to ajax request
 app.use(bdypsr.json())
-// allows us to read the form
+  // allows us to read the form
 app.use(bdypsr.urlencoded({extended: true}))
 
 // setup flash----------------------------------
@@ -56,14 +64,11 @@ app.use(function (req, res, next) {
   next()
 })
 
-// get requests from browser----------------------------------
-app.get('/', function (req, res) {
-  res.render('user/login', {
-    // flash: req.flash('msg')
-  }) // get flash but don't need because we set locals using middleware
-})
-// setup user Route
+// setup user Route----------------------------------
 app.use('/user', userRoute)
+
+// setup playlist route----------------------------------
+app.use('/playlist', playlistRoute)
 
 // connect to port ----------------------------------
 const port = 3000

@@ -41,6 +41,12 @@ const userSchema = new Schema({
 //   return bcrypt.compareSync(givenPassword, this.password)
 // }
 
+userSchema.methods.validPassword = function (givenPassword) {
+  // t/f based on the user.hashed compared with form.password
+  // return bcrypt.compareSync(givenPassword, this.password)
+  return (givenPassword === this.password)
+}
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User

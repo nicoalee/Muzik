@@ -1,11 +1,39 @@
 const express = require('express')
 var router = express.Router()
 const userController = require('../controllers/userController')
+var passport = require('../config/passport')
 
-router.get('/new', function (req, res) {
-  res.render('user/register') // get flash
-})
+function authenticatedUser (req, res, next) {
+  if (req.isAuthenticated()) return next()
 
-router.post('/new', userController.register)
+  req.flash('msg', 'Must be logged in to access!')
+  return res.redirect('/user')
+}
+
+function unAuthenticatedUser (req, res, next) {
+  if (!req.isAuthenticated()) return next()
+
+  // Otherwise
+  req.flash('msg', 'You are already logged in!')
+  return res.redirect('/playlist')
+}
+
+// get requests from browser----------------------------------
+router.route('/')
+  .get(unAuthenticatedUser, function (req, res) {
+    res.render('user/login', {
+    // flash: req.flash('msg')
+    }) // get flash but don't need because we set locals using middleware
+  })
+  .post(passport.authenticate('local', {
+    successRedirect: '/playlist',
+    failureRedirect: '/user'
+  }))
+
+router.route('/new')
+  .get(unAuthenticatedUser, function (req, res) {
+    res.render('user/register') // get flash
+  })
+  .post(userController.create)
 
 module.exports = router
