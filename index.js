@@ -39,8 +39,8 @@ app.use(session({
   resave: false,
   saveUinitialized: true,
   store: new MongoStore({
-    url: 'mongodb://localhost/muzak'
-    // process.env.MLAB_URI
+    url: process.env.MLAB_URI
+    // 'mongodb://localhost/muzak'
   })
 }))
 
