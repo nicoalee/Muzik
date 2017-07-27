@@ -18,11 +18,12 @@ const songRoute = require('./routes/songRoute')
 
 // extra stuff----------------------------------
 const app = express()
+const url = process.env.MLAB_URI || 'mongodb://localhost/muzak'
 
 // setup mongoose----------------------------------
 mongoose.Promise = global.Promise
 app.use(express.static('public'))
-mongoose.connect('mongodb://localhost/muzak', {
+mongoose.connect(url, {
   useMongoClient: true
 }).then(
   function () {
@@ -34,12 +35,13 @@ mongoose.connect('mongodb://localhost/muzak', {
 
 // setup session----------------------------------
 app.use(session({
-  store: new MongoStore({
-    url: 'mongodb://localhost/muzak'
-  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUinitialized: true
+  saveUinitialized: true,
+  store: new MongoStore({
+    url: process.env.MLAB_URI
+    // 'mongodb://localhost/muzak'
+  })
 }))
 
 // setup passport----------------------------------
