@@ -26,7 +26,7 @@ mongoose.connect(url, {
   useMongoClient: true
 }).then(
   function () {
-    console.log('...connected to database successfully')
+    console.log('...connected successfully')
   },
   function (err) {
     console.log(err)
@@ -39,8 +39,8 @@ app.use(session({
   resave: false,
   saveUinitialized: true,
   store: new MongoStore({
-    url: process.env.MLAB_URI
-    // 'mongodb://localhost/muzak'
+    url: 'mongodb://localhost/muzak'
+    // process.env.MLAB_URI
   })
 }))
 
