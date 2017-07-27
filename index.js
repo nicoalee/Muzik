@@ -14,6 +14,7 @@ const flash = require('connect-flash')
 const userRoute = require('./routes/userRoute')
 const playlistRoute = require('./routes/playlistRoute')
 const passport = require('./config/passport')
+const songRoute = require('./routes/songRoute')
 
 // extra stuff----------------------------------
 const app = express()
@@ -53,9 +54,9 @@ app.set('view engine', 'handlebars')
 
 // set up body parser----------------------------------
 // listen to ajax request
-app.use(bdypsr.json())
+// app.use(bdypsr.json())
   // allows us to read the form
-app.use(bdypsr.urlencoded({extended: true}))
+// app.use(bdypsr.urlencoded({extended: true}))
 
 // setup flash----------------------------------
 // don't need to write anymore. Flash will always appear
@@ -68,6 +69,9 @@ app.use(function (req, res, next) {
 
 // setup user Route----------------------------------
 app.use('/user', userRoute)
+
+// setup song Route----------------------------------
+app.use('/song', songRoute)
 
 // setup playlist route----------------------------------
 app.use('/playlist', playlistRoute)

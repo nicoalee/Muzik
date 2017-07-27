@@ -1,4 +1,4 @@
-const Song = require('Song')
+const Song = require('./Song')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 

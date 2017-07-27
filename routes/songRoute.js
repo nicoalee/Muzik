@@ -1,6 +1,6 @@
 const express = require('express')
 var router = express.Router()
-const playlistController = require('../controllers/playlistController')
+const songController = require('../controllers/songController')
 
 function authenticatedUser (req, res, next) {
   if (req.isAuthenticated()) return next()
@@ -16,12 +16,6 @@ function unAuthenticatedUser (req, res, next) {
 }
 
 router.route('/')
-  .get(authenticatedUser, function (req, res) {
-    res.render('playlist/list')
-  })
-
-router.route('/create')
-  .get(authenticatedUser, playlistController.getAuthToken)
-  .post(authenticatedUser, playlistController.create)
+  .post(authenticatedUser, songController.create)
 
 module.exports = router

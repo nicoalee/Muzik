@@ -335,6 +335,7 @@ a.pure-button-primary {
   top: 9%;
   position: absolute;
   background-color: #1f8dd6;
+  overflow: auto;
 }
 
 .songSearch {
@@ -362,4 +363,23 @@ li {
   list-style-position: inside;
   border: 3px solid white;
   border-radius: 30px;
+}
+
+#loadingDiv{
+  width: 7%;
+  height: 7%;
+  margin-left: 47%;
+  display: none;
+}
+
+.addbttn{
+  width: 20%;
+  height:5%;
+  background-color: rgb(80, 105, 168);
+  display: block;
+  margin: 0 auto;
+}
+
+.addbttn:hover{
+  background-color: rgb(60, 103, 214)
 }

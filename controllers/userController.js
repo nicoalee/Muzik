@@ -2,6 +2,7 @@ const User = require('../models/User')
 const passport = require('../config/passport')
 
 function create (req, res) {
+  // console.log(req.originalUrl)
   // findorcreate
   // if user exists
   User.findOne({email: req.body.user.email}, function (err, doc) {

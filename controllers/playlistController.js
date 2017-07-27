@@ -1,8 +1,9 @@
-const passport = require('../config/passport')
 const request = require('request')
+const Playlist = require('../models/Playlist')
+const qs = require('querystring')
 const tokenUrl = 'https://accounts.spotify.com/api/token'
 
-function create (req, res) {
+function getAuthToken (req, res) {
   var potentialToken = ''
   var authOptions = {
     url: tokenUrl,
@@ -23,10 +24,35 @@ function create (req, res) {
       res.render('./playlist/create', {token: req.session.token})
     }
   })
+}
 
-  // res.render('./playlist/create')
+function create (req, res) {
+  // borrowed function which gets query from req
+  var body = ''
+  req.on('data', function (data) {
+    body += data
+            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+    if (body.length > 1e6) {
+                // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
+      req.connection.destroy()
+    }
+  })
+  req.on('end', function () {
+    var query = qs.parse(body)
+            // use query
+    var newPlaylist = new Playlist({
+      name: query.playlistName
+    })
+    newPlaylist.save(function (err, createdPlaylist) {
+      if (err) return res.send(err)
+      req.session.playlist = createdPlaylist._id
+      req.flash('msg', 'New Playlist successfully created!')
+      res.redirect('/playlist/create')
+    })
+  })
 }
 
 module.exports = {
+  getAuthToken,
   create
 }

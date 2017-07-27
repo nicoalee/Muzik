@@ -8,6 +8,7 @@
 
     <ul class="pure-menu-list">
       {{!-- <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li> --}}
+      <li class="pure-menu-item"><a href="/playlist" class="pure-menu-link">View Playlists</a></li>
       <li class="pure-menu-item"><a href="/user/logout" class="pure-menu-link">Logout</a></li>
     </ul>
   </div>
@@ -16,11 +17,12 @@
 <div class="wrapper">
 
   <div class="form">
-    <form class='songSearch' method="post" action='#'>
-      <input name='song' class='searchField' type="text" class="pure-input-rounded" placeholder="Search for your favorite songs">
+    <form class='songSearch' method="post" action='playlist/create'>
+      <p class='splash-subhead'>{{flash}}</p>
+      <input name='song' class='searchField' type="text" class="pure-input-rounded" placeholder="Search for songs to add to your playlist">
       <button class="submit">Search</button>
     </form>
-    <img id="loadingDiv" data-speed="300" class="hidden" src="img/spinner.gif" alt="loading" width="30">
+    <img id="loadingDiv" src="/img/loadingDiv.gif" alt="loading">
   </div>
   <div class="list">
     <ul class='songList'>
