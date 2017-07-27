@@ -23,7 +23,7 @@ router.route('/')
     res.render('user/login', {
     // flash: req.flash('msg')
     }) // get flash but don't need because we set locals using middleware
-  })
+  }) // i guess posting to authenticate must require body parser
   .post(passport.authenticate('local', {
     successRedirect: '/playlist',
     failureRedirect: '/user'

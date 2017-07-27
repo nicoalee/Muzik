@@ -4,6 +4,7 @@ const User = require('../models/User')
 
 // takes user id and stores it in req.session.passport.user
 passport.serializeUser(function (user, next) {
+  console.log('entered')
   next(null, user.id)
 })
 
@@ -41,9 +42,10 @@ function localVerify (req, passportEmail, passportPassword, next) {
     // takes found use (found by email) and tests their password
     if (!foundUser || !foundUser.validPassword(passportPassword)) {
       req.flash('msg', 'Incorrect email or password')
-      next(null, false)
+      next(null, false) // go to failure redirect
     } else {
       console.log('success, redirect to /profile')
+      req.flash('msg', 'Successfully logged in')
       next(null, foundUser) // go to successRedirect
     }
   })

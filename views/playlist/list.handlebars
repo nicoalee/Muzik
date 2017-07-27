@@ -11,10 +11,10 @@
 
 <div class="splash-container">
   <div class="splash">
-    <p class='splash-subhead'>
-      {{flash}}
-    </p>
     <form class="pure-form playlist" action='/playlist/create' method='POST'>
+      <p class='splash-subhead'>
+        {{flash}}
+      </p>
       <input type="text" placeholder="Type in the name of your new playlist here" required name='playlistName'>
       <button class="pure-button pure-button-primary">Create</button>
     </form>
@@ -27,175 +27,37 @@
     <h2 class="content-head is-center">Scroll to view playlists</h2>
 
     <div class="pure-g">
-      <div class="l-box pure-u-1-2 is-center">
-        <p class='content-subhead'>PlaylistName</p>
-        <div class="tablediv" style='height:14vw; overflow-y:auto;'>
 
-          <table class="pure-table table-addition">
+      {{#each playlists as |playlist|}}
 
-            <thead>
-              <tr style='text-align: center;'>
-                <th>#</th>
-                <th>Name</th>
-                <th>Artist</th>
-                <th>Album</th>
-              </tr>
-            </thead>
+        <div class="l-box pure-u-1-2 is-center">
+          <p class='content-subhead'>{{playlist.name}}</p>
+          <div class="tablediv" style='height:14vw; overflow-y:auto;'>
 
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Fire</td>
-                <td>Ed Sheeran</td>
-                <td>IDK</td>
-              </tr>
+            <table class="pure-table table-addition">
 
-              <tr>
-                <td>2</td>
-                <td>Dangerous Woman</td>
-                <td>Ariana Grande</td>
-                <td>Playboy</td>
-              </tr>
+              <thead>
+                <tr style='text-align: center;'>
+                  <th>Name</th>
+                  <th>Artist</th>
+                  <th>Album</th>
+                </tr>
+              </thead>
 
-              <tr>
-                <td>3</td>
-                <td>Bats in the Belfry</td>
-                <td>Disco Jet</td>
-                <td>IDK</td>
-              </tr>
-            </tbody>
+              {{#each playlist.songs as |song|}}
 
-          </table>
-
+                <tbody>
+                  <tr>
+                    <td>{{song.name}}</td>
+                    <td>{{song.artist}}</td>
+                    <td>{{song.album}}</td>
+                  </tr>
+              {{/each}}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-
-      <div class="l-box pure-u-1-2 is-center">
-        <p class='content-subhead'>PlaylistName</p>
-        <div class="tablediv" style='height:14vw; overflow-y:auto;'>
-
-          <table class="pure-table table-addition">
-
-            <thead>
-              <tr style='text-align: center;'>
-                <th>#</th>
-                <th>Name</th>
-                <th>Artist</th>
-                <th>Album</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Fire</td>
-                <td>Ed Sheeran</td>
-                <td>IDK</td>
-              </tr>
-
-              <tr>
-                <td>2</td>
-                <td>Dangerous Woman</td>
-                <td>Ariana Grande</td>
-                <td>Playboy</td>
-              </tr>
-
-              <tr>
-                <td>3</td>
-                <td>Bats in the Belfry</td>
-                <td>Disco Jet</td>
-                <td>IDK</td>
-              </tr>
-            </tbody>
-
-          </table>
-
-        </div>
-      </div>
-      <div class="l-box pure-u-1-2 is-center">
-        <p class='content-subhead'>PlaylistName</p>
-        <div class="tablediv" style='height:14vw; overflow-y:auto;'>
-
-          <table class="pure-table table-addition">
-
-            <thead>
-              <tr style='text-align: center;'>
-                <th>#</th>
-                <th>Name</th>
-                <th>Artist</th>
-                <th>Album</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Fire</td>
-                <td>Ed Sheeran</td>
-                <td>IDK</td>
-              </tr>
-
-              <tr>
-                <td>2</td>
-                <td>Dangerous Woman</td>
-                <td>Ariana Grande</td>
-                <td>Playboy</td>
-              </tr>
-
-              <tr>
-                <td>3</td>
-                <td>Bats in the Belfry</td>
-                <td>Disco Jet</td>
-                <td>IDK</td>
-              </tr>
-            </tbody>
-
-          </table>
-
-        </div>
-      </div>
-      <div class="l-box pure-u-1-2 is-center">
-        <p class='content-subhead'>PlaylistName</p>
-        <div class="tablediv" style='height:14vw; overflow-y:auto;'>
-
-          <table class="pure-table table-addition">
-
-            <thead>
-              <tr style='text-align: center;'>
-                <th>#</th>
-                <th>Name</th>
-                <th>Artist</th>
-                <th>Album</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Fire</td>
-                <td>Ed Sheeran</td>
-                <td>IDK</td>
-              </tr>
-
-              <tr>
-                <td>2</td>
-                <td>Dangerous Woman</td>
-                <td>Ariana Grande</td>
-                <td>Playboy</td>
-              </tr>
-
-              <tr>
-                <td>3</td>
-                <td>Bats in the Belfry</td>
-                <td>Disco Jet</td>
-                <td>IDK</td>
-              </tr>
-            </tbody>
-
-          </table>
-
-        </div>
-      </div>
+      {{/each}}
     </div>
   </div>
 

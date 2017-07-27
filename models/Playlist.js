@@ -8,7 +8,6 @@ const playlistSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Song' // tell mongoose to populate 'Song' model
   }]
-  // recommended:
 })
 
 const Playlist = mongoose.model('Playlist', playlistSchema)

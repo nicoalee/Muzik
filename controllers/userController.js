@@ -25,10 +25,11 @@ function create (req, res) {
           if (err.errors.password) req.flash('msg', JSON.stringify(err.errors.password.message))
           return res.redirect('/user/new') // flash set
         }
-        passport.authenticate('local', {
-          successRedirect: '/playlist'
-          // req.flash('msg', 'User succesfully created! Please log in below.') // flash set
-        })(req, res)
+        // passport.authenticate('local', {
+        //   successRedirect: '/playlist',
+        //   failureRedirect: '/user/new'
+        // }) //WAS WORKING BUT NOW ISNT
+        res.redirect('/user')
       })
     }
   })

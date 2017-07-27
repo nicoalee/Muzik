@@ -18,7 +18,8 @@ const songRoute = require('./routes/songRoute')
 
 // extra stuff----------------------------------
 const app = express()
-const url = process.env.MLAB_URI || 'mongodb://localhost/muzak'
+const url = 'mongodb://localhost/muzak'
+// process.env.MLAB_URI ||
 
 // setup mongoose----------------------------------
 mongoose.Promise = global.Promise
@@ -39,8 +40,8 @@ app.use(session({
   resave: false,
   saveUinitialized: true,
   store: new MongoStore({
-    url: process.env.MLAB_URI
-    // 'mongodb://localhost/muzak'
+    url: 'mongodb://localhost/muzak'
+    // process.env.MLAB_URI
   })
 }))
 
@@ -56,9 +57,9 @@ app.set('view engine', 'handlebars')
 
 // set up body parser----------------------------------
 // listen to ajax request
-// app.use(bdypsr.json())
+app.use(bdypsr.json())
   // allows us to read the form
-// app.use(bdypsr.urlencoded({extended: true}))
+app.use(bdypsr.urlencoded({extended: true}))
 
 // setup flash----------------------------------
 // don't need to write anymore. Flash will always appear

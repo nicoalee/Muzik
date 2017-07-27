@@ -16,9 +16,7 @@ function unAuthenticatedUser (req, res, next) {
 }
 
 router.route('/')
-  .get(authenticatedUser, function (req, res) {
-    res.render('playlist/list')
-  })
+  .get(authenticatedUser, playlistController.show)
 
 router.route('/create')
   .get(authenticatedUser, playlistController.getAuthToken)

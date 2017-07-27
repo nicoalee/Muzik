@@ -1,10 +1,9 @@
 const request = require('request')
 const Playlist = require('../models/Playlist')
-const qs = require('querystring')
+const User = require('../models/User')
 const tokenUrl = 'https://accounts.spotify.com/api/token'
 
 function getAuthToken (req, res) {
-  var potentialToken = ''
   var authOptions = {
     url: tokenUrl,
     headers: {
@@ -27,32 +26,40 @@ function getAuthToken (req, res) {
 }
 
 function create (req, res) {
-  // borrowed function which gets query from req
-  var body = ''
-  req.on('data', function (data) {
-    body += data
-            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-    if (body.length > 1e6) {
-                // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
-      req.connection.destroy()
-    }
+  var newPlaylist = new Playlist({
+    name: req.body.playlistName
   })
-  req.on('end', function () {
-    var query = qs.parse(body)
-            // use query
-    var newPlaylist = new Playlist({
-      name: query.playlistName
-    })
-    newPlaylist.save(function (err, createdPlaylist) {
+  newPlaylist.save(function (err, createdPlaylist) {
+    if (err) return res.send(err)
+    User.findById(req.user.id, function (err, user) {
       if (err) return res.send(err)
-      req.session.playlist = createdPlaylist._id
+      user.playlists.push(createdPlaylist.id)
+      user.save()
       req.flash('msg', 'New Playlist successfully created!')
       res.redirect('/playlist/create')
     })
   })
 }
 
+function show (req, res) {
+  User.findById(req.user.id)
+  .populate({
+    path: 'playlists',
+    model: 'Playlist',
+    populate: {
+      path: 'songs',
+      model: 'Song'
+    }
+  })
+  .exec(function (err, user) {
+    res.render('playlist/list', {
+      playlists: user.playlists
+    })
+  })
+}
+
 module.exports = {
   getAuthToken,
-  create
+  create,
+  show
 }
