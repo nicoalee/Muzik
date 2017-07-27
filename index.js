@@ -1,5 +1,6 @@
 // load .env file
 require('dotenv').config()
+
 // external modules----------------------------------
 const handlebars = require('handlebars')
 const exphbs = require('express-handlebars')
@@ -61,7 +62,8 @@ app.use(bdypsr.urlencoded({extended: true}))
 app.use(flash())
 app.use(function (req, res, next) {
   app.locals.flash = req.flash('msg')
-  next()
+  app.locals.user = req.user
+  .next()
 })
 
 // setup user Route----------------------------------

@@ -14,7 +14,7 @@ function unAuthenticatedUser (req, res, next) {
   if (!req.isAuthenticated()) return next()
 
   // Otherwise
-  req.flash('msg', 'You are already logged in!')
+  req.flash('msg', 'You are already logged in. Cannot go to register or log in page!')
   return res.redirect('/playlist')
 }
 
