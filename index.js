@@ -77,7 +77,7 @@ app.use('/song', songRoute)
 app.use('/playlist', playlistRoute)
 
 // connect to port ----------------------------------
-const port = 3000
+const port = process.env.PORT || 5000
 app.listen(port, function () {
   console.log(`...successfully connected to port ${port}`)
 })
