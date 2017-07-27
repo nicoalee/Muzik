@@ -22,7 +22,6 @@ const url = process.env.MLAB_URI || 'mongodb://localhost/muzak'
 
 // setup mongoose----------------------------------
 mongoose.Promise = global.Promise
-app.use(express.static('public'))
 mongoose.connect(url, {
   useMongoClient: true
 }).then(
@@ -32,6 +31,7 @@ mongoose.connect(url, {
   function (err) {
     console.log(err)
   })
+app.use(express.static('public'))
 
 // setup session----------------------------------
 app.use(session({
