@@ -1,3 +1,7 @@
+<script>
+  var authToken = '{{{token}}}'
+</script>
+
 <div class="header">
   <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
     <a class="pure-menu-heading" href='/user'>MUZIK.com</a>
@@ -9,14 +13,20 @@
   </div>
 </div>
 
-<div class="splash-container">
-  <div class="splash">
-    <p class='splash-subhead'>
-      {{flash}}
-    </p>
+<div class="wrapper">
+
+  <div class="form">
     <form class='songSearch' method="post" action='#'>
       <input name='song' class='searchField' type="text" class="pure-input-rounded" placeholder="Search for your favorite songs">
-      <button class="pure-button">Search</button>
+      <button class="submit">Search</button>
     </form>
+    <img id="loadingDiv" data-speed="300" class="hidden" src="img/spinner.gif" alt="loading" width="30">
+  </div>
+  <div class="list">
+    <ul class='songList'>
+
+    </ul>
   </div>
 </div>
+
+<script src="/js/script.js"></script>

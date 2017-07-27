@@ -63,7 +63,7 @@ app.use(flash())
 app.use(function (req, res, next) {
   app.locals.flash = req.flash('msg')
   app.locals.user = req.user
-  .next()
+  next()
 })
 
 // setup user Route----------------------------------
