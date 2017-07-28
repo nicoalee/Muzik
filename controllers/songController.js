@@ -5,7 +5,7 @@ function create (req, res) {
   Playlist.find().sort('-created_at').exec(function (err, post) {
     if (err) return res.send(err)
 
-    Playlist.findById(post[post.length - 1].id, function (err, playlist) {
+    Playlist.findById(post[0].id, function (err, playlist) {
       if (err) return res.send(err)
       var newSong = new Song({
         name: req.body.name,
