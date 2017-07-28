@@ -15,7 +15,7 @@ Muzik is a website that will allow you to explore new music and make playlists t
 My project involved the usage of:
 * The spotify API
 * A 3 model design with users, music, and playlists
-![ERD](README_images/ERD.jp)
+![ERD](README_images/ERD.jpg)
 * The pure CSS framework
 
 --
