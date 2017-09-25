@@ -28,7 +28,7 @@ function create (req, res) {
         // passport.authenticate('local', {
         //   successRedirect: '/playlist',
         //   failureRedirect: '/user/new'
-        // }) //WAS WORKING BUT NOW ISNT
+        // }) // WAS WORKING BUT NOW ISNT
         res.redirect('/user')
       })
     }

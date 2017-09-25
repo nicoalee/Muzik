@@ -32,15 +32,17 @@
 
         <div class="l-box pure-u-1-2 is-center">
           <p class='content-subhead'>{{playlist.name}}</p>
-          <div class="tablediv" style='height:14vw; overflow-y:auto;'>
+          <div class="tablediv" style='height:22vw; overflow-y:auto;'>
 
             <table class="pure-table table-addition">
 
               <thead>
                 <tr style='text-align: center;'>
+                  <th>Remove</th>
                   <th>Name</th>
                   <th>Artist</th>
                   <th>Album</th>
+                  <th>Track</th>
                 </tr>
               </thead>
 
@@ -48,9 +50,11 @@
 
                 <tbody>
                   <tr>
+                    <td><button class='removeSong' data-playlistId={{playlist.id}} data-songId={{song.id}}>Click to delete</button></td>
                     <td>{{song.name}}</td>
                     <td>{{song.artist}}</td>
                     <td>{{song.album}}</td>
+                    <td><iframe class='change' frameborder='0' width='80px' allowtransparency='true' src={{song.embed}}></iframe></td>
                   </tr>
               {{/each}}
               </tbody>

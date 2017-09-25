@@ -194,7 +194,7 @@ a.pure-button-primary {
 .content-wrapper {
   /* These styles are required for the "scroll-over" effect */
   position: absolute;
-  top: 83%;
+  top: 82%;
   width: 100%;
   min-height: 12%;
   z-index: 2;
@@ -315,6 +315,12 @@ a.pure-button-primary {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.change{
+  position: relative;
+  display: block;
+  margin-top: 4em;
 }
 
 .searchField {

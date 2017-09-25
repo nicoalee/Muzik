@@ -4,7 +4,8 @@ const Schema = mongoose.Schema
 const songSchema = new Schema({
   name: String,
   artist: String,
-  album: String
+  album: String,
+  embed: String
 })
 
 const Song = mongoose.model('Song', songSchema)

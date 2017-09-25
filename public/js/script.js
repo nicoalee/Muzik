@@ -2,13 +2,30 @@ $(document).ready(function () {
   $loadingDiv = $('#loadingDiv')
   $songList = $('.songList')
 
+  $('.removeSong').on('click', function (e) {
+    e.preventDefault()
+    const removeButton = $(this)
+    var data = {
+      songId: removeButton.data('songid'),
+      playlistId: removeButton.data('playlistid')
+    }
+    // console.log(data)
+    $.post('/playlist/delete', data).done(function (data) {
+      if (data.status === 'ok') {
+        location.reload()
+      }
+    })
+  })
+
   $songList.on('click', '.addbttn', function (e) {
     e.preventDefault()
     const theBttn = $(this)
+    // console.log(theBttn)
     var newSong = {
       name: theBttn.data('name'),
       artist: theBttn.data('artist'),
-      album: theBttn.data('album')
+      album: theBttn.data('album'),
+      embed: theBttn.data('embed')
     }
 
     $.post('/song', newSong).done(function (data) {
@@ -27,8 +44,6 @@ $(document).ready(function () {
     var keywordObj = $(this).serializeArray()
     var keyword = keywordObj[0].value
     var qString = `q=${keyword}`
-    console.log(qString)
-    console.log('token is ' + authToken)
 
     var options = {
       url: `https://api.spotify.com/v1/search?${qString}&type=track`,
@@ -49,8 +64,6 @@ $(document).ready(function () {
 
         if ($songList.find('li').length) $songList.html('')
 
-        console.log(songData.tracks.items)
-
         var songs = songData.tracks.items
         // create a list of songs to choose from
 
@@ -69,13 +82,13 @@ $(document).ready(function () {
           })
 
           var artistName = $artist.text()
-          var $addBttn = $(`<button class='addbttn' data-name="${song.name}" data-artist="${artistName}" data-album="${song.album.name}">Add To Playlist</button>`)
+          var embed = `https://open.spotify.com/embed?uri=${song.uri}`
+          var $addBttn = $(`<button class='addbttn' data-name="${song.name}" data-artist="${artistName}" data-album="${song.album.name}" data-embed="${embed}">Add To Playlist</button>`)
 
           $album.text(song.album.name)
-          console.log(song.uri)
           $newLi.append($newH2, $artist, $album, $iframe, $addBttn)
           $songList.append($newLi)
-          $('iframe').last().attr('src', `https://open.spotify.com/embed?uri=${song.uri}`)
+          $('iframe').last().attr('src', embed)
         })
       }
     })

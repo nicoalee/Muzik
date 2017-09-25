@@ -10,7 +10,8 @@ function create (req, res) {
       var newSong = new Song({
         name: req.body.name,
         artist: req.body.artist,
-        album: req.body.album
+        album: req.body.album,
+        embed: req.body.embed
       })
       newSong.save(function (err, newSong) {
         if (err) return res.send(err)
