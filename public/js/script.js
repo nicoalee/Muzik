@@ -45,13 +45,13 @@ $(document).ready(function () {
     var keyword = keywordObj[0].value
     var qString = `q=${keyword}`
 
-    var options = {
-      url: `https://api.spotify.com/v1/search?${qString}&type=track`,
-      headers: {
-        'Authorization': 'Bearer ' + authToken
-      },
-      json: true
-    }
+    // var options = {
+    //   url: `https://api.spotify.com/v1/search?${qString}&type=track`,
+    //   headers: {
+    //     'Authorization': 'Bearer ' + authToken
+    //   },
+    //   json: true
+    // }
 
     $.ajax({
       url: `https://api.spotify.com/v1/search?${qString}&type=track`,

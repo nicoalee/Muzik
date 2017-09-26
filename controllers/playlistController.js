@@ -36,6 +36,7 @@ function create (req, res) {
       user.playlists.push(createdPlaylist.id)
       user.save()
       req.flash('msg', 'New Playlist successfully created!')
+      req.session.playlist = createdPlaylist.id
       res.redirect('/playlist/create')
     })
   })
