@@ -22,7 +22,4 @@ router.route('/create')
   .get(authenticatedUser, playlistController.getAuthToken)
   .post(authenticatedUser, playlistController.create)
 
-router.route('/delete')
-  .post(authenticatedUser, playlistController.destroy)
-
 module.exports = router

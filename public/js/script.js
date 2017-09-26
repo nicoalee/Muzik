@@ -10,7 +10,7 @@ $(document).ready(function () {
       playlistId: removeButton.data('playlistid')
     }
     // console.log(data)
-    $.post('/playlist/delete', data).done(function (data) {
+    $.post('/song/delete', data).done(function (data) {
       if (data.status === 'ok') {
         location.reload()
       }

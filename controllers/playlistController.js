@@ -59,21 +59,8 @@ function show (req, res) {
   })
 }
 
-function destroy (req, res) {
-  Playlist.findById(req.body.playlistId, function (err, playlist) {
-    if (err) return res.send(err)
-    // console.log(playlist.songs)
-    // console.log('song id: ' + req.body.songId)
-    var index = playlist.songs.indexOf(req.body.songId)
-    playlist.songs.splice(index, 1)
-    playlist.save()
-    res.send({status: 'ok'})
-  })
-}
-
 module.exports = {
   getAuthToken,
   create,
-  show,
-  destroy
+  show
 }

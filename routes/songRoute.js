@@ -18,4 +18,7 @@ function authenticatedUser (req, res, next) {
 router.route('/')
   .post(authenticatedUser, songController.create)
 
+router.route('/delete')
+  .post(authenticatedUser, songController.destroy)
+
 module.exports = router
