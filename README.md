@@ -2,7 +2,7 @@
 
 
 
-## [Live demo here](https://muziknow.herokuapp.com/user)
+## [Live demo here](https://makingmuzak.herokuapp.com/user)
 
 ## Introduction
 
