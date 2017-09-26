@@ -1,5 +1,6 @@
 const request = require('request')
 const Playlist = require('../models/Playlist')
+const Song = require('../models/Song');
 const User = require('../models/User')
 const tokenUrl = 'https://accounts.spotify.com/api/token'
 
@@ -61,8 +62,12 @@ function destroy(req, res) {
   // User.findById(req.user.id, function(err, user){
   // })
   Playlist.findById(req.body.playlistId, function(err, playlist) {
-    if (err)
-      return res.send(err)
+    if (err) return res.send(err)
+    playlist.songs.map(function(song){
+      Song.findById(song, function(err, returnedSong){
+        returnedSong.remove()
+      })
+    })
     playlist.remove(res.send({status: 'ok'}))
   })
 }

@@ -32,6 +32,10 @@ function destroy (req, res) {
     // console.log('song id: ' + req.body.songId)
     var index = playlist.songs.indexOf(req.body.songId)
     playlist.songs.splice(index, 1)
+    Song.findById(req.body.songId, function(err, song){
+      if(err) return res.send(err)
+      song.remove()
+    })
     playlist.save()
     res.send({status: 'ok'})
   })

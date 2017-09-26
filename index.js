@@ -18,8 +18,7 @@ const songRoute = require('./routes/songRoute')
 
 // extra stuff----------------------------------
 const app = express()
-const url = 'mongodb://localhost/muzak'
-// || process.env.MLAB_URI
+const url = process.env.MLAB_URI || 'mongodb://localhost/muzak'
 
 // setup mongoose----------------------------------
 mongoose.Promise = global.Promise
@@ -40,8 +39,8 @@ app.use(session({
   resave: false,
   saveUinitialized: true,
   store: new MongoStore({
-    url: 'mongodb://localhost/muzak'
-    // process.env.MLAB_URI
+    url: process.env.MLAB_URI
+    // 'mongodb://localhost/muzak'
   })
 }))
 
