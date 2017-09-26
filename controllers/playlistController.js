@@ -3,7 +3,7 @@ const Playlist = require('../models/Playlist')
 const User = require('../models/User')
 const tokenUrl = 'https://accounts.spotify.com/api/token'
 
-function getAuthToken (req, res) {
+function getAuthToken(req, res) {
   var authOptions = {
     url: tokenUrl,
     headers: {
@@ -16,7 +16,7 @@ function getAuthToken (req, res) {
   }
 
   // spotify returns token, which then gets passed into callback (body)
-  request.post(authOptions, function (error, response, body) {
+  request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       // token stored in body
       req.session.token = body.access_token
@@ -25,14 +25,14 @@ function getAuthToken (req, res) {
   })
 }
 
-function create (req, res) {
-  var newPlaylist = new Playlist({
-    name: req.body.playlistName
-  })
-  newPlaylist.save(function (err, createdPlaylist) {
-    if (err) return res.send(err)
-    User.findById(req.user.id, function (err, user) {
-      if (err) return res.send(err)
+function create(req, res) {
+  var newPlaylist = new Playlist({name: req.body.playlistName})
+  newPlaylist.save(function(err, createdPlaylist) {
+    if (err)
+      return res.send(err)
+    User.findById(req.user.id, function(err, user) {
+      if (err)
+        return res.send(err)
       user.playlists.push(createdPlaylist.id)
       user.save()
       req.flash('msg', 'New Playlist successfully created!')
@@ -42,38 +42,40 @@ function create (req, res) {
   })
 }
 
-function show (req, res) {
-  User.findById(req.user.id)
-  .populate({
+function show(req, res) {
+  User.findById(req.user.id).populate({
     path: 'playlists',
     model: 'Playlist',
     populate: {
       path: 'songs',
       model: 'Song'
     }
-  })
-  .exec(function (err, user) {
-    if (err) return res.send(err)
-    res.render('playlist/list', {
-      playlists: user.playlists
-    })
+  }).exec(function(err, user) {
+    if (err)
+      return res.send(err)
+    res.render('playlist/list', {playlists: user.playlists})
   })
 }
 
-function destroy (req, res){
+function destroy(req, res) {
   // User.findById(req.user.id, function(err, user){
   // })
-  Playlist.findById(req.body.playlistId, function(err, playlist){
-    if (err) return res.send(err)
-    playlist.remove(
-      res.send({status: 'ok'})
-    )
+  Playlist.findById(req.body.playlistId, function(err, playlist) {
+    if (err)
+      return res.send(err)
+    playlist.remove(res.send({status: 'ok'}))
   })
+}
+
+function edit(req, res) {
+  req.session.playlist = req.body.playlistId
+  res.send({redirect: 'playlist/create'})
 }
 
 module.exports = {
   getAuthToken,
   create,
   show,
-  destroy
+  destroy,
+  edit
 }

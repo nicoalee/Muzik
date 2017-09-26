@@ -1,8 +1,8 @@
-$(document).ready(function () {
+$(document).ready(function() {
   $loadingDiv = $('#loadingDiv')
   $songList = $('.songList')
 
-  $('.removeSong').on('click', function (e) {
+  $('.removeSong').on('click', function(e) {
     e.preventDefault()
     const removeButton = $(this)
     var data = {
@@ -10,27 +10,43 @@ $(document).ready(function () {
       playlistId: removeButton.data('playlistid')
     }
     // console.log(data)
-    $.post('/song/delete', data).done(function (data) {
+    $.post('/song/delete', data).done(function(data) {
       if (data.status === 'ok') {
         location.reload()
       }
     })
   })
 
-  $('.playlist_delete').on('click', function(e){
+  $('.playlistEdit').on('click', function(e) {
     e.preventDefault()
-    const removePlaylistButton = $(this)
+    const editPlaylist = $(this)
     var data = {
-      playlistId: removePlaylistButton.data('playlistid')
+      playlistId: editPlaylist.data('playlistid')
     }
-    $.post('/playlist/delete', data).done(function (data){
-      if(data.status === 'ok') {
-        location.reload()
+    $.post('/playlist/edit', data).done(function (data){
+      if(data.redirect){
+        window.location = data.redirect
       }
     })
   })
 
-  $songList.on('click', '.addbttn', function (e) {
+  $('.playlist_delete').on('click', function(e) {
+    e.preventDefault()
+    var doubleCheck = confirm("Are you sure you want to delete a playlist?")
+    if(doubleCheck){
+      const removePlaylistButton = $(this)
+      var data = {
+        playlistId: removePlaylistButton.data('playlistid')
+      }
+      $.post('/playlist/delete', data).done(function(data) {
+        if (data.status === 'ok') {
+          location.reload()
+        }
+      })
+    }
+  })
+
+  $songList.on('click', '.addbttn', function(e) {
     e.preventDefault()
     const theBttn = $(this)
     // console.log(theBttn)
@@ -41,7 +57,7 @@ $(document).ready(function () {
       embed: theBttn.data('embed')
     }
 
-    $.post('/song', newSong).done(function (data) {
+    $.post('/song', newSong).done(function(data) {
       if (data.status === 'ok') {
         alert(data.message)
       }
@@ -50,7 +66,7 @@ $(document).ready(function () {
     theBttn.parent().remove()
   })
 
-  $('.songSearch').on('submit', function (e) {
+  $('.songSearch').on('submit', function(e) {
     $loadingDiv.fadeIn()
     e.preventDefault()
 
@@ -72,15 +88,16 @@ $(document).ready(function () {
       headers: {
         'Authorization': 'Bearer ' + authToken
       },
-      success: function (songData) {
+      success: function(songData) {
         $loadingDiv.fadeOut()
 
-        if ($songList.find('li').length) $songList.html('')
+        if ($songList.find('li').length)
+          $songList.html('')
 
         var songs = songData.tracks.items
         // create a list of songs to choose from
 
-        songs.forEach(function (song) {
+        songs.forEach(function(song) {
           var $newLi = $('<li class=borderlist>')
           var $newH2 = $('<h2>')
           var $album = $('<p>')
@@ -90,7 +107,7 @@ $(document).ready(function () {
 
           $newH2.text(song.name)
 
-          song.artists.forEach(function (artist) {
+          song.artists.forEach(function(artist) {
             $artist.append(document.createTextNode(artist.name + ' '))
           })
 

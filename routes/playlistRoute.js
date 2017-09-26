@@ -25,4 +25,7 @@ router.route('/create')
 router.route('/delete')
   .post(authenticatedUser, playlistController.destroy)
 
+router.route('/edit')
+  .post(authenticatedUser, playlistController.edit)
+
 module.exports = router
