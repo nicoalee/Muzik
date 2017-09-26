@@ -378,6 +378,17 @@ li {
   display: none;
 }
 
+.playlist_delete{
+  position: relative;
+  font-size: .8vw;
+  color: gray;
+  width: 9%;
+  height: 8%;
+  text-shadow: .05vw .05vw black;
+  line-height: 5%;
+  float: left;
+}
+
 .addbttn{
   width: 20%;
   height:5%;

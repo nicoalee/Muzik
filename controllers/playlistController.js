@@ -53,14 +53,27 @@ function show (req, res) {
     }
   })
   .exec(function (err, user) {
+    if (err) return res.send(err)
     res.render('playlist/list', {
       playlists: user.playlists
     })
   })
 }
 
+function destroy (req, res){
+  // User.findById(req.user.id, function(err, user){
+  // })
+  Playlist.findById(req.body.playlistId, function(err, playlist){
+    if (err) return res.send(err)
+    playlist.remove(
+      res.send({status: 'ok'})
+    )
+  })
+}
+
 module.exports = {
   getAuthToken,
   create,
-  show
+  show,
+  destroy
 }

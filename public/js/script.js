@@ -17,6 +17,19 @@ $(document).ready(function () {
     })
   })
 
+  $('.playlist_delete').on('click', function(e){
+    e.preventDefault()
+    const removePlaylistButton = $(this)
+    var data = {
+      playlistId: removePlaylistButton.data('playlistid')
+    }
+    $.post('/playlist/delete', data).done(function (data){
+      if(data.status === 'ok') {
+        location.reload()
+      }
+    })
+  })
+
   $songList.on('click', '.addbttn', function (e) {
     e.preventDefault()
     const theBttn = $(this)
